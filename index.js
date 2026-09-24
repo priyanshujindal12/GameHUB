@@ -95,10 +95,62 @@
     });
   }
 
+  function initParallax() {
+    if (prefersReducedMotion) return;
+    if (window.innerWidth < 640) return;
+
+    var gridFloor = document.getElementById('grid-floor');
+    var floatShapes = document.getElementById('float-shapes');
+    var ambientGlows = document.querySelectorAll('.ambient-glow');
+
+    var targetX = 0;
+    var targetY = 0;
+    var currentX = 0;
+    var currentY = 0;
+
+    window.addEventListener('mousemove', function (e) {
+      targetX = (e.clientX - window.innerWidth / 2) / (window.innerWidth / 2);
+      targetY = (e.clientY - window.innerHeight / 2) / (window.innerHeight / 2);
+    });
+
+    function animate() {
+      // Smooth lerp
+      currentX += (targetX - currentX) * 0.06;
+      currentY += (targetY - currentY) * 0.06;
+
+      var gridDX = currentX * 12;
+      var gridDY = currentY * 8;
+
+      if (gridFloor) {
+        gridFloor.style.transform =
+          'translateX(calc(-50% + ' + gridDX + 'px)) perspective(500px) rotateX(65deg)';
+      }
+
+      if (floatShapes) {
+        floatShapes.style.transform =
+          'translate(' + (currentX * 18) + 'px, ' + (currentY * 14) + 'px)';
+      }
+
+      // Subtle glow movement
+      ambientGlows.forEach(function (glow, i) {
+        var factor = (i + 1) * 5;
+        glow.style.transform =
+          'translate(' + (currentX * factor) + 'px, ' + (currentY * factor) + 'px)';
+      });
+
+      requestAnimationFrame(animate);
+    }
+
+    animate();
+  }
+
+ 
+
   
   document.addEventListener('DOMContentLoaded', function () {
     initEntranceAnimations();
      initParticles();
+     initParallax();
   
   });
 
