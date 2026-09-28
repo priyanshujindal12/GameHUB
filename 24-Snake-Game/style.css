@@ -1,0 +1,123 @@
+/* ═══════════════════════════════════════════════════════
+   Snake — GameHub Neon Arcade Dark Theme
+   ═══════════════════════════════════════════════════════ */
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Rajdhani', 'Open Sans', sans-serif;
+}
+
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background: var(--gh-bg, #050507);
+}
+
+.wrapper {
+  width: 65vmin;
+  height: 70vmin;
+  display: flex;
+  overflow: hidden;
+  flex-direction: column;
+  justify-content: center;
+  border-radius: 12px;
+  background: var(--gh-surface, #100B18);
+  border: 1px solid var(--gh-border, rgba(168, 85, 247, 0.15));
+  box-shadow:
+    0 20px 60px rgba(0, 0, 0, 0.5),
+    0 0 30px rgba(139, 92, 246, 0.06);
+}
+
+.game-details {
+  color: var(--gh-text-muted, #A9A3B8);
+  font-weight: 600;
+  font-size: 1rem;
+  padding: 16px 24px;
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--gh-border, rgba(168, 85, 247, 0.15));
+  letter-spacing: 0.05em;
+}
+
+.game-details .score {
+  color: var(--gh-text, #F8F7FF);
+}
+
+.game-details .high-score {
+  color: var(--gh-purple-light, #C084FC);
+}
+
+.play-board {
+  height: 100%;
+  width: 100%;
+  display: grid;
+  background: linear-gradient(180deg, #0A0710 0%, #0D0915 100%);
+  grid-template: repeat(30, 1fr) / repeat(30, 1fr);
+  /* Subtle grid lines */
+  background-image:
+    linear-gradient(rgba(139, 92, 246, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(139, 92, 246, 0.04) 1px, transparent 1px);
+  background-size: calc(100% / 30) calc(100% / 30);
+}
+
+.play-board .food {
+  background: var(--gh-purple-bright, #A855F7);
+  border-radius: 50%;
+  box-shadow: 0 0 10px var(--gh-purple-glow, rgba(139, 92, 246, 0.35));
+}
+
+.play-board .head {
+  background: #34D399;
+  border-radius: 3px;
+  box-shadow: 0 0 6px rgba(52, 211, 153, 0.4);
+}
+
+.controls {
+  display: none;
+  justify-content: space-between;
+  border-top: 1px solid var(--gh-border, rgba(168, 85, 247, 0.15));
+}
+
+.controls i {
+  padding: 20px 0;
+  text-align: center;
+  font-size: 1.2rem;
+  color: var(--gh-text-muted, #A9A3B8);
+  width: calc(100% / 4);
+  cursor: pointer;
+  border-right: 1px solid rgba(139, 92, 246, 0.08);
+  transition: color 0.2s ease, background 0.2s ease;
+}
+
+.controls i:last-child {
+  border-right: none;
+}
+
+.controls i:hover,
+.controls i:active {
+  color: var(--gh-purple-light, #C084FC);
+  background: rgba(139, 92, 246, 0.08);
+}
+
+@media screen and (max-width: 800px) {
+  .wrapper {
+    width: 90vmin;
+    height: 115vmin;
+  }
+  .game-details {
+    font-size: 0.9rem;
+    padding: 12px 20px;
+  }
+  .controls {
+    display: flex;
+  }
+  .controls i {
+    padding: 15px 0;
+    font-size: 1rem;
+  }
+}
