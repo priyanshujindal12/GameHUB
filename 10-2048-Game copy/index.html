@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2048 – GameHub</title>
+    <link rel="stylesheet" href="../shared/gamehub-core.css" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="game-container" id="game-container">
+      <div class="game-info">
+        <div class="score-panel">
+          <div class="score-box">
+            <span class="score-label">SCORE</span>
+            <span class="score-value" id="score">0</span>
+          </div>
+          <div class="score-box best-box">
+            <span class="score-label">BEST</span>
+            <span class="score-value" id="best-score">0</span>
+          </div>
+        </div>
+        <p class="game-hint" id="result">Join the numbers and get to the <b>2048</b> tile!</p>
+        <div class="game-controls">
+          <button class="gh-btn gh-btn-primary" id="restart-btn">NEW GAME</button>
+        </div>
+      </div>
+      <div class="grid"></div>
+
+      <!-- Mobile swipe controls hint -->
+      <div class="mobile-hint">
+        <span>SWIPE or use ARROW KEYS to play</span>
+      </div>
+    </div>
+
+    <script src="../shared/gamehub-core.js"></script>
+    <script src="script.js" charset="utf-8"></script>
+  </body>
+</html>

@@ -1,0 +1,153 @@
+/* ═══════════════════════════════════════════════════════
+   2048 — GameHub Dark Theme
+   Dark puzzle board with glowing tiles
+   ═══════════════════════════════════════════════════════ */
+
+body {
+  background-color: var(--gh-bg, #050507);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: var(--gh-font-body, 'Poppins', sans-serif);
+  min-height: 100vh;
+  margin: 0;
+}
+
+.game-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 1.5rem;
+  max-width: 520px;
+  width: 100%;
+}
+
+/* Score panel */
+.game-info {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.score-panel {
+  display: flex;
+  gap: 1rem;
+  width: 100%;
+  justify-content: center;
+}
+
+.score-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.2rem;
+  min-width: 100px;
+  padding: 0.6rem 1.2rem;
+  border-radius: 10px;
+  background: var(--gh-surface, #100B18);
+  border: 1px solid var(--gh-border, rgba(168, 85, 247, 0.15));
+}
+
+.score-label {
+  font-family: var(--gh-font-heading, 'Rajdhani', sans-serif);
+  font-weight: 600;
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gh-text-dim, #6B6580);
+}
+
+.score-value {
+  font-family: var(--gh-font-display, 'Orbitron', sans-serif);
+  font-weight: 700;
+  font-size: 1.6rem;
+  color: var(--gh-text, #F8F7FF);
+  text-shadow: 0 0 10px rgba(139, 92, 246, 0.3);
+}
+
+.best-box .score-value {
+  color: var(--gh-purple-light, #C084FC);
+}
+
+.game-hint {
+  font-size: 0.85rem;
+  color: var(--gh-text-muted, #A9A3B8);
+  text-align: center;
+}
+
+.game-hint b {
+  color: var(--gh-purple-light, #C084FC);
+}
+
+.game-controls {
+  display: flex;
+  gap: 0.5rem;
+}
+
+/* Grid board */
+.grid {
+  display: flex;
+  flex-wrap: wrap;
+  width: 456px;
+  height: 456px;
+  background: linear-gradient(135deg, #1A1228, #120D1C);
+  border: 4px solid rgba(139, 92, 246, 0.15);
+  border-radius: 12px;
+  padding: 6px;
+  box-shadow:
+    0 0 30px rgba(139, 92, 246, 0.08),
+    inset 0 0 40px rgba(0, 0, 0, 0.3);
+}
+
+/* Tiles */
+.grid div {
+  width: 100px;
+  height: 100px;
+  margin: 6px;
+  border-radius: 8px;
+  font-weight: 700;
+  text-align: center;
+  font-size: 2rem;
+  line-height: 100px;
+  transition: background-color 0.15s ease, color 0.15s ease, box-shadow 0.15s ease;
+  font-family: var(--gh-font-display, 'Orbitron', sans-serif);
+}
+
+/* Mobile hint */
+.mobile-hint {
+  text-align: center;
+  font-family: var(--gh-font-heading, 'Rajdhani', sans-serif);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--gh-text-dim, #6B6580);
+  padding: 0.5rem;
+}
+
+/* ─── Responsive ─── */
+@media (max-width: 500px) {
+  .grid {
+    width: calc(100vw - 2rem);
+    height: calc(100vw - 2rem);
+    padding: 4px;
+  }
+
+  .grid div {
+    width: calc((100vw - 2rem - 56px) / 4);
+    height: calc((100vw - 2rem - 56px) / 4);
+    margin: 4px;
+    font-size: 1.3rem;
+    line-height: calc((100vw - 2rem - 56px) / 4);
+  }
+}
+
+/* ─── Reduced motion ─── */
+@media (prefers-reduced-motion: reduce) {
+  .grid div {
+    transition: none;
+  }
+}
