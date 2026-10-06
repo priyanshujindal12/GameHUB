@@ -1,7 +1,4 @@
-/* ═══════════════════════════════════════════════════════
-   GAMEHUB CORE — Shared Scoring, Header, & Overlay
-   Loaded by every game: <script src="../shared/gamehub-core.js">
-   ═══════════════════════════════════════════════════════ */
+
 
 (function (root) {
   'use strict';
@@ -16,18 +13,10 @@
     'rps':            { max: 10,    xpCap: 300 },
     'flappy-bird':    { max: 50,    xpCap: 500 },
     '2048':           { max: 20000, xpCap: 500 },
-    'ping-pong':      { max: 10,    xpCap: 300 },
     'snake':          { max: 50,    xpCap: 500 },
     'typing':         { max: 30,    xpCap: 400 },
-    'fruit-slicer':   { max: 50,    xpCap: 400 },
-    'quiz':           { max: 10,    xpCap: 300 },
-    'space-invaders': { max: 5000,  xpCap: 500 },
-    'frogger':        { max: 5000,  xpCap: 500 }
   };
 
-  /* ═══════════════════════════════════════════════════
-     1. LOCALSTORAGE DATA LAYER
-     ═══════════════════════════════════════════════════ */
   function getDefaultData() {
     return {
       player: { totalXP: 0, gamesPlayed: 0 },

@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="GameHub Dashboard — Browse and play multiple games. Track your scores, climb leaderboards, and become the ultimate champion.">
+  <title>GameHub – Game Library</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Rajdhani:wght@400;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="dashboard.css">
+</head>
+<body>
+
+  <!-- ═══ NAVBAR ═══ -->
+  <header class="header" id="header">
+    <nav class="navbar" id="navbar">
+      <a href="index.html" class="nav-logo" id="nav-logo">
+        <span class="logo-icon">◆</span>
+        <span class="logo-text">GAMEHUB</span>
+      </a>
+
+      <ul class="nav-links" id="nav-links">
+        <li><a href="index.html" class="nav-link" id="nav-home">Home</a></li>
+        <li><a href="dashboard.html" class="nav-link active" id="nav-games">Games</a></li>
+        <li><a href="#" class="nav-link" id="nav-leaderboard">Leaderboard</a></li>
+        <li><a href="#" class="nav-link" id="nav-about">About</a></li>
+      </ul>
+
+      <!-- Player rating HUD (desktop) -->
+      <div class="player-hud" id="player-hud">
+        <div class="hud-xp">
+          <span class="hud-xp-value" id="hud-xp-value">0</span>
+          <span class="hud-xp-label">XP</span>
+        </div>
+        <div class="hud-stars" id="hud-stars" aria-label="Player rating">
+          <span class="star filled">★</span>
+          <span class="star">★</span>
+          <span class="star">★</span>
+          <span class="star">★</span>
+          <span class="star">★</span>
+        </div>
+      </div>
+
+      <button class="hamburger" id="hamburger" aria-label="Toggle navigation menu" aria-expanded="false">
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+      </button>
+    </nav>
+
+    <!-- Mobile menu overlay -->
+    <div class="mobile-menu" id="mobile-menu">
+      <div class="mobile-hud">
+        <div class="hud-xp">
+          <span class="hud-xp-value mobile-xp-value">0</span>
+          <span class="hud-xp-label">XP</span>
+        </div>
+        <div class="hud-stars mobile-stars" aria-label="Player rating">
+          <span class="star filled">★</span>
+          <span class="star">★</span>
+          <span class="star">★</span>
+          <span class="star">★</span>
+          <span class="star">★</span>
+        </div>
+      </div>
+      <ul class="mobile-links">
+        <li><a href="index.html" class="mobile-link">Home</a></li>
+        <li><a href="dashboard.html" class="mobile-link">Games</a></li>
+        <li><a href="#" class="mobile-link">Leaderboard</a></li>
+        <li><a href="#" class="mobile-link">About</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <!-- ═══ MAIN CONTENT ═══ -->
+  <main class="dashboard">
+
+    <!-- Background effects -->
+    <canvas class="particles-canvas" id="particles-canvas"></canvas>
+    <div class="ambient-glow ambient-glow--1"></div>
+    <div class="ambient-glow ambient-glow--2"></div>
+
+    <!-- Dashboard layout: sidebar + content -->
+    <div class="dashboard-layout">
+
+      <!-- ─── Sidebar (desktop) ─── -->
+      <aside class="sidebar" id="sidebar">
+        <div class="sidebar-section">
+          <h3 class="sidebar-title">Categories</h3>
+          <ul class="sidebar-list" id="category-list">
+            <li><button class="sidebar-btn active" data-category="all">🎮 All Games</button></li>
+            <li><button class="sidebar-btn" data-category="arcade">🕹️ Arcade</button></li>
+            <li><button class="sidebar-btn" data-category="puzzle">🧩 Puzzle</button></li>
+            <li><button class="sidebar-btn" data-category="action">⚔️ Action</button></li>
+            <li><button class="sidebar-btn" data-category="skill">🎯 Skill</button></li>
+          </ul>
+        </div>
+
+        <div class="sidebar-section">
+          <h3 class="sidebar-title">Stats</h3>
+          <div class="sidebar-stats">
+            <div class="stat-item">
+              <span class="stat-value" id="stat-games-played">0</span>
+              <span class="stat-label">Games Played</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-value" id="stat-best-streak">0</span>
+              <span class="stat-label">Best Streak</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-value" id="stat-total-time">0m</span>
+              <span class="stat-label">Time Played</span>
+            </div>
+          </div>
+        </div>
+      </aside>
+
+      <!-- ─── Content area ─── -->
+      <div class="content">
+
+        <!-- Dashboard hero / greeting -->
+        <section class="dash-hero anim-entry" id="dash-hero">
+          <div class="dash-hero-text">
+            <p class="dash-eyebrow">WELCOME BACK, PLAYER</p>
+            <h1 class="dash-headline">Choose Your <span class="text-accent">Game</span></h1>
+            <p class="dash-subtitle">Browse the collection. Pick a challenge. Beat your best.</p>
+          </div>
+
+          <!-- Mobile category filter (horizontal scroll) -->
+          <div class="mobile-filters" id="mobile-filters">
+            <button class="filter-chip active" data-category="all">All</button>
+            <button class="filter-chip" data-category="arcade">Arcade</button>
+            <button class="filter-chip" data-category="puzzle">Puzzle</button>
+            <button class="filter-chip" data-category="action">Action</button>
+            <button class="filter-chip" data-category="skill">Skill</button>
+          </div>
+        </section>
+
+        <!-- Search bar -->
+        <div class="search-bar anim-entry" id="search-bar">
+          <span class="search-icon">🔍</span>
+          <input
+            type="text"
+            class="search-input"
+            id="search-input"
+            placeholder="Search games..."
+            aria-label="Search games"
+          >
+          <span class="search-count" id="search-count">7 games</span>
+        </div>
+
+        <!-- Game cards grid -->
+        <section class="games-grid" id="games-grid">
+
+          <!-- Doodle Jump -->
+          <a href="04-Doodle-Jump-Game/index.html" class="game-card anim-entry" data-category="arcade" aria-label="Play Doodle Jump" id="card-doodle-jump">
+            <div class="card-image">
+              <img src="assets/covers/doodle-jump.jpg" alt="Doodle Jump game cover" loading="lazy">
+              <div class="card-overlay"></div>
+            </div>
+            <div class="card-info">
+              <div class="card-meta">
+                <span class="card-category">Arcade</span>
+                <span class="card-best" id="best-doodle-jump">—</span>
+              </div>
+              <h3 class="card-title">Doodle Jump</h3>
+              <p class="card-desc">Bounce higher and higher on platforms. Don't fall!</p>
+              <div class="card-cta">
+                <span class="card-play">Play Now</span>
+                <span class="card-arrow">→</span>
+              </div>
+            </div>
+          </a>
+
+         
+
+          <!-- Flappy Bird -->
+          <a href="09-Flappy-Bird-Game/index.html" class="game-card anim-entry" data-category="arcade" aria-label="Play Flappy Bird" id="card-flappy-bird">
+            <div class="card-image">
+              <img src="assets/covers/flappy-bird.jpg" alt="Flappy Bird game cover" loading="lazy">
+              <div class="card-overlay"></div>
+            </div>
+            <div class="card-info">
+              <div class="card-meta">
+                <span class="card-category">Arcade</span>
+                <span class="card-best" id="best-flappy-bird">—</span>
+              </div>
+              <h3 class="card-title">Flappy Bird</h3>
+              <p class="card-desc">Tap to fly through pipes. How far can you go?</p>
+              <div class="card-cta">
+                <span class="card-play">Play Now</span>
+                <span class="card-arrow">→</span>
+              </div>
+            </div>
+          </a>
+
+          <!-- 2048 -->
+          <a href="10-2048-Game/index.html" class="game-card anim-entry" data-category="puzzle" aria-label="Play 2048" id="card-2048">
+            <div class="card-image">
+              <img src="assets/covers/2048.jpg" alt="2048 game cover" loading="lazy">
+              <div class="card-overlay"></div>
+            </div>
+            <div class="card-info">
+              <div class="card-meta">
+                <span class="card-category">Puzzle</span>
+                <span class="card-best" id="best-2048">—</span>
+              </div>
+              <h3 class="card-title">2048</h3>
+              <p class="card-desc">Slide and merge tiles to reach 2048. A true brain teaser.</p>
+              <div class="card-cta">
+                <span class="card-play">Play Now</span>
+                <span class="card-arrow">→</span>
+              </div>
+            </div>
+          </a>
+
+          <!-- Typing Game -->
+          <a href="27-Typing-Game/index.html" class="game-card anim-entry" data-category="skill" aria-label="Play Typing Challenge" id="card-typing">
+            <div class="card-image">
+              <img src="assets/covers/typing-game.jpg" alt="Typing Challenge game cover" loading="lazy">
+              <div class="card-overlay"></div>
+            </div>
+            <div class="card-info">
+              <div class="card-meta">
+                <span class="card-category">Skill</span>
+                <span class="card-best" id="best-typing">—</span>
+              </div>
+              <h3 class="card-title">Typing Challenge</h3>
+              <p class="card-desc">Test your typing speed and accuracy. Race against the clock!</p>
+              <div class="card-cta">
+                <span class="card-play">Play Now</span>
+                <span class="card-arrow">→</span>
+              </div>
+            </div>
+          </a>
+
+          <!-- Space Invaders -->
+         <!--  <a href="42-Space-Invaders-Game/index.html" class="game-card anim-entry" data-category="action" aria-label="Play Space Invaders" id="card-space-invaders">
+            <div class="card-image">
+              <img src="assets/covers/space-invaders.jpg" alt="Space Invaders game cover" loading="lazy">
+              <div class="card-overlay"></div>
+            </div>
+            <div class="card-info">
+              <div class="card-meta">
+                <span class="card-category">Action</span>
+                <span class="card-best" id="best-space-invaders">—</span>
+              </div>
+              <h3 class="card-title">Space Invaders</h3>
+              <p class="card-desc">Defend Earth from alien hordes in this retro classic!</p>
+              <div class="card-cta">
+                <span class="card-play">Play Now</span>
+                <span class="card-arrow">→</span>
+              </div>
+            </div>
+          </a> -->
+
+          <!-- Frogger -->
+          <!-- <a href="46-Frogger-Game/index.html" class="game-card anim-entry" data-category="arcade" aria-label="Play Frogger" id="card-frogger">
+            <div class="card-image">
+              <img src="assets/covers/frogger.jpg" alt="Frogger game cover" loading="lazy">
+              <div class="card-overlay"></div>
+            </div>
+            <div class="card-info">
+              <div class="card-meta">
+                <span class="card-category">Arcade</span>
+                <span class="card-best" id="best-frogger">—</span>
+              </div>
+              <h3 class="card-title">Frogger</h3>
+              <p class="card-desc">Guide the frog across busy roads and rivers. Stay alive!</p>
+              <div class="card-cta">
+                <span class="card-play">Play Now</span>
+                <span class="card-arrow">→</span>
+              </div>
+            </div>
+          </a> -->
+
+          <!-- Ping Pong -->
+        <!--   <a href="19-Ping-Pong-Game/index.html" class="game-card anim-entry" data-category="arcade" aria-label="Play Ping Pong" id="card-ping-pong">
+            <div class="card-image">
+              <img src="assets/covers/ping-pong.jpg" alt="Ping Pong game cover" loading="lazy">
+              <div class="card-overlay"></div>
+            </div>
+            <div class="card-info">
+              <div class="card-meta">
+                <span class="card-category">Arcade</span>
+                <span class="card-best" id="best-ping-pong">—</span>
+              </div>
+              <h3 class="card-title">Ping Pong</h3>
+              <p class="card-desc">Classic Pong — two paddles, one ball. Score 10 to win!</p>
+              <div class="card-cta">
+                <span class="card-play">Play Now</span>
+                <span class="card-arrow">→</span>
+              </div>
+            </div>
+          </a>
+ -->
+          <!-- Snake -->
+          <a href="24-Snake-Game/index.html" class="game-card anim-entry" data-category="arcade" aria-label="Play Snake" id="card-snake">
+            <div class="card-image">
+              <img src="assets/covers/snake.jpg" alt="Snake game cover" loading="lazy">
+              <div class="card-overlay"></div>
+            </div>
+            <div class="card-info">
+              <div class="card-meta">
+                <span class="card-category">Arcade</span>
+                <span class="card-best" id="best-snake">—</span>
+              </div>
+              <h3 class="card-title">Snake</h3>
+              <p class="card-desc">Eat food, grow longer, avoid walls. The timeless classic!</p>
+              <div class="card-cta">
+                <span class="card-play">Play Now</span>
+                <span class="card-arrow">→</span>
+              </div>
+            </div>
+          </a>
+
+          <!-- Fruit Slicer -->
+          <!-- <a href="32-Fruit-Slicer-Game/index.html" class="game-card anim-entry" data-category="action" aria-label="Play Fruit Slicer" id="card-fruit-slicer">
+            <div class="card-image">
+              <img src="assets/covers/fruit-slicer.jpg" alt="Fruit Slicer game cover" loading="lazy">
+              <div class="card-overlay"></div>
+            </div>
+            <div class="card-info">
+              <div class="card-meta">
+                <span class="card-category">Action</span>
+                <span class="card-best" id="best-fruit-slicer">—</span>
+              </div>
+              <h3 class="card-title">Fruit Slicer</h3>
+              <p class="card-desc">Slice fruits as they fly! Don't miss or you lose a life.</p>
+              <div class="card-cta">
+                <span class="card-play">Play Now</span>
+                <span class="card-arrow">→</span>
+              </div>
+            </div>
+          </a> -->
+
+          <!-- Quiz -->
+   <!--        <a href="33-Quiz-Game/index.html" class="game-card anim-entry" data-category="puzzle" aria-label="Play Quiz" id="card-quiz">
+            <div class="card-image">
+              <img src="assets/covers/quiz.jpg" alt="Quiz game cover" loading="lazy">
+              <div class="card-overlay"></div>
+            </div>
+            <div class="card-info">
+              <div class="card-meta">
+                <span class="card-category">Puzzle</span>
+                <span class="card-best" id="best-quiz">—</span>
+              </div>
+              <h3 class="card-title">Quiz Challenge</h3>
+              <p class="card-desc">Test your knowledge! 10 questions, how many can you ace?</p>
+              <div class="card-cta">
+                <span class="card-play">Play Now</span>
+                <span class="card-arrow">→</span>
+              </div>
+            </div>
+          </a> -->
+
+        </section>
+
+        <!-- Empty state for search -->
+        <div class="empty-state hidden" id="empty-state">
+          <span class="empty-icon">🎮</span>
+          <p class="empty-text">No games found. Try a different search.</p>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <!-- ═══ FOOTER ═══ -->
+  <footer class="footer">
+    <p class="footer-text">© 2026 GameHub. All rights reserved. Built with ❤️ and vanilla JS.</p>
+  </footer>
+
+  <script src="dashboard.js"></script>
+</body>
+</html>
